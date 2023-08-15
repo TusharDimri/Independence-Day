@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Happy Independence Day</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <script src="https://cdn.botpress.cloud/webchat/v0/inject.js"></script>
+    <script src="https://mediafiles.botpress.cloud/bc794b8f-5097-4cba-b99d-e5503a7fa757/webchat/config.js"
+        defer></script>
+
+    <button id="myButton">Click Me!</button>
+    <script>
+        function handleClick() {
+            console.log("Button clicked!");
+            window.botpressWebChat.sendPayload({
+                type: "trigger",
+                payload: {
+                    myCustomProperty: "hello",
+                },
+            });
+        }
+
+        const button = document.getElementById("myButton");
+        button.addEventListener("click", handleClick);
+
+        window.botpressWebChat.onEvent(
+            function (event) {
+                if (event.type === "LIFECYCLE.LOADED") {
+                    window.botpressWebChat.sendEvent({ type: "show" });
+                }
+            },
+            ["LIFECYCLE.LOADED"]
+        );
+    </script>
+</body>
+
+</html>
